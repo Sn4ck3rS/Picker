@@ -4,10 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { DataUploadComponent } from './data-upload/data-upload.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DataUploadComponent
   ],
   imports: [
     BrowserModule,
