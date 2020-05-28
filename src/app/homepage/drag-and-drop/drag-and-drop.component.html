@@ -1,0 +1,30 @@
+<div class="container">
+
+    <div class="dropzone">
+        <input type="file" #csvReader id="txtFileUpload" multiple (change)="uploadListener($event)" accept=".csv">
+        <img src="../../../assets/Pictures/Upload.png" alt="yeet the file online">
+        <p class="h3">Drag and drop file here</p>
+        <p class="h3">or</p>
+        <label for="txtFileUpload">Browse for File</label>
+    </div>
+    
+    <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />    
+    <table class="minimalistBlack" *ngIf="students.length > 0">    
+      <thead>    
+        <tr>    
+          <th>Klasse </th>    
+          <th>Vorname </th>    
+          <th>Name </th>    
+     
+        </tr>    
+      </thead>    
+      <tbody>    
+        <tr *ngFor="let student of students;let i = index;">    
+          <td> <span>{{student.class}}</span> </td>    
+          <td> <span>{{student.firstName}}</span> </td>    
+          <td> <span>{{student.lastName}}</span> </td>    
+       
+        </tr>    
+      </tbody>    
+    </table>
+    </div>

@@ -1,27 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Student } from '../../assets/Classes/student';
+import { Student } from '../../../assets/Classes/student';
 
 @Component({
-  selector: 'app-data-upload',
-  templateUrl: './data-upload.component.html',
-  styleUrls: ['./data-upload.component.scss']
+  selector: 'app-drag-and-drop',
+  templateUrl: './drag-and-drop.component.html',
+  styleUrls: ['./drag-and-drop.component.scss']
 })
-export class DataUploadComponent implements OnInit {
+export class DragAndDropComponent implements OnInit {
 
   constructor() { }
 
-  students: Student[]
+  
   ngOnInit(): void {
-    this.students = new Array<Student>();
+    
   }
 
-
-  public records: any[] = [];  
+  public students: any[] = [];  
   @ViewChild('csvReader') csvReader: any;  
   
   uploadListener($event: any): void {  
   
-    let text = [];  
     let files = $event.srcElement.files;  
   
     if (this.isValidCSVFile(files[0])) {  
@@ -36,34 +34,35 @@ export class DataUploadComponent implements OnInit {
   
         let headersRow = this.getHeaderArray(csvRecordsArray);  
   
-        this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);  
+        this.students = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);  
       };  
   
       reader.onerror = function () {  
-        console.log('error is occured while reading file!');  
+        console.log('Beim Lesen der Datei ist ein Fehler aufgetreten');  
       };  
   
     } else {  
-      alert("Please import valid .csv file.");  
+      alert("Bitte wählen sie eine gültige .csv-Datei .");  
       this.fileReset();  
     }  
   }  
   
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {  
     let csvArr = [];  
-    console.log("RecordsArray: " + csvRecordsArray)
-    for (let i = 1; i < csvRecordsArray.length; i++) {  
-      let curruntRecord = (<string>csvRecordsArray[i]).split(',');  
-      console.log("current Record: "+ curruntRecord)
-      if (curruntRecord.length == headerLength) {  
+  
+    for (let i = 0; i < csvRecordsArray.length; i++) { 
+      console.log(csvRecordsArray[i]);
+      
+      let currentRecord = (csvRecordsArray[i]).split(';');  
+      console.log(currentRecord);
+      if (currentRecord.length == headerLength) {  
         let csvRecord: Student = new Student();  
-        csvRecord.class = curruntRecord[0].trim();  
-        csvRecord.firstName = curruntRecord[1].trim();  
-        csvRecord.lastName = curruntRecord[2].trim();  
+        csvRecord.class = currentRecord[0];  
+        csvRecord.firstName = currentRecord[1];  
+        csvRecord.lastName = currentRecord[2];  
         csvArr.push(csvRecord);  
       }  
     }  
-    console.log(csvArr);
     return csvArr;  
   }  
   
@@ -72,7 +71,7 @@ export class DataUploadComponent implements OnInit {
   }  
   
   getHeaderArray(csvRecordsArr: any) {  
-    let headers = (<string>csvRecordsArr[0]).split(',');  
+    let headers = (<string>csvRecordsArr[0]).split(';');  
     let headerArray = [];  
     for (let j = 0; j < headers.length; j++) {  
       headerArray.push(headers[j]);  
@@ -82,6 +81,7 @@ export class DataUploadComponent implements OnInit {
   
   fileReset() {  
     this.csvReader.nativeElement.value = "";  
-    this.records = [];  
+    this.students = [];  
   }  
+
 }
