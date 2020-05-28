@@ -84,4 +84,6 @@ export class DragAndDropComponent implements OnInit {
     this.students = [];  
   }  
 
+  
+
 }

@@ -1,6 +1,6 @@
 .dropzone{
-    width: 450px;
-    height: 200px;
+    width: 60%;
+    height: auto;
     padding: 2rem;
     text-align: center;
     border: dashed 1px grey;
@@ -17,11 +17,19 @@
         left: 0;
     }
     label{
-        color: white;
-        width: 183px;
-        height: 44px;
+        color: grey;
+        width: 60%;
+        height: auto;
         border-radius: 21.5px;
-        background-color: blue;
+        background-color:transparent;
         pad: 8px 16px;
+    }
+    img{
+        height: auto;
+        max-width: 8%;
+
+    }
+    p{
+        text-align: center;
     }
 }
