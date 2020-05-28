@@ -7,6 +7,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ClassesComponent } from './homepage/classes/classes.component';
 import { DragAndDropComponent } from './homepage/drag-and-drop/drag-and-drop.component';
 import { DragndropDirective } from './homepage/dragndrop.directive';
+import {HttpClientModule} from "@angular/common/http"
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DragndropDirective } from './homepage/dragndrop.directive';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

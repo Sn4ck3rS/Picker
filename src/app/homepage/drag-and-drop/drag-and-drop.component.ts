@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Student } from '../../../assets/Classes/student';
+import { HttpClient} from "@angular/common/http"
 
 @Component({
   selector: 'app-drag-and-drop',
@@ -8,25 +9,33 @@ import { Student } from '../../../assets/Classes/student';
 })
 export class DragAndDropComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   
   ngOnInit(): void {
     
   }
 
-  public students: any[] = [];  
+  public students: any[] = []; 
+  fileToUpload: File = null; 
+  fd: FormData;
+
+  
   @ViewChild('csvReader') csvReader: any;  
   
   uploadListener($event: any): void {  
   
-    let files = $event.srcElement.files;  
+    let files = $event.srcElement.files; 
+    this.fileToUpload = $event.target.files[0];
+
   
     if (this.isValidCSVFile(files[0])) {  
   
       let input = $event.target;  
       let reader = new FileReader();  
       reader.readAsText(input.files[0]);  
+
+      console.log(this.fileToUpload)
   
       reader.onload = () => {  
         let csvData = reader.result;  
@@ -40,6 +49,7 @@ export class DragAndDropComponent implements OnInit {
       reader.onerror = function () {  
         console.log('Beim Lesen der Datei ist ein Fehler aufgetreten');  
       };  
+      
   
     } else {  
       alert("Bitte wählen sie eine gültige .csv-Datei .");  
@@ -51,10 +61,10 @@ export class DragAndDropComponent implements OnInit {
     let csvArr = [];  
   
     for (let i = 0; i < csvRecordsArray.length; i++) { 
-      console.log(csvRecordsArray[i]);
+      
       
       let currentRecord = (csvRecordsArray[i]).split(';');  
-      console.log(currentRecord);
+      
       if (currentRecord.length == headerLength) {  
         let csvRecord: Student = new Student();  
         csvRecord.class = currentRecord[0];  
@@ -84,6 +94,14 @@ export class DragAndDropComponent implements OnInit {
     this.students = [];  
   }  
 
-  
+  onUpload(){
+    this.fd = new FormData();
+    this.fd.append(this.students[0], this.fileToUpload);
+    this.http.post('../../../assets/CSV', this.fd).subscribe(
+      res =>{
+        console.log("Working")
+      }
+    );
+  }
 
 }
