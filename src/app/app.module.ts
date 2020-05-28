@@ -5,11 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { DataUploadComponent } from './data-upload/data-upload.component';
+import { ClassesComponent } from './homepage/classes/classes.component';
+import { DragAndDropComponent } from './homepage/drag-and-drop/drag-and-drop.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DataUploadComponent
+    DataUploadComponent,
+    ClassesComponent,
+    DragAndDropComponent
   ],
   imports: [
     BrowserModule,
