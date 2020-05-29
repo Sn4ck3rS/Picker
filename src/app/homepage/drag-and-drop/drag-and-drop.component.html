@@ -1,7 +1,9 @@
 <div class="container">
 
     <div class="dropzone">
-        <input type="file" #csvReader id="txtFileUpload" multiple (change)="uploadListener($event)" accept=".csv">
+        <form action="/api/upload" method="post" enctype="multipart/form-data" >
+            <input type="file" #csvReader id="txtFileUpload" multiple (change)="uploadListener($event)" accept=".csv">
+        </form>
         <img src="../../../assets/Images/Upload.png" alt="yeet the file online">
         <p class="h3">Drag and drop file here</p>
         <p class="h3">or</p>

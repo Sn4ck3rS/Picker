@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Student } from '../../../assets/Classes/student';
-import { HttpClient} from "@angular/common/http"
+import { HttpClient, HttpHeaders} from "@angular/common/http"
 
 @Component({
   selector: 'app-drag-and-drop',
@@ -9,7 +9,7 @@ import { HttpClient} from "@angular/common/http"
 })
 export class DragAndDropComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private header: HttpHeaders) { }
 
   
   ngOnInit(): void {
@@ -18,7 +18,9 @@ export class DragAndDropComponent implements OnInit {
 
   public students: any[] = []; 
   fileToUpload: File = null; 
+  files:File[]=new Array<File>();
   fd: FormData;
+  fileName: string;
 
   
   @ViewChild('csvReader') csvReader: any;  
@@ -26,7 +28,9 @@ export class DragAndDropComponent implements OnInit {
   uploadListener($event: any): void {  
   
     let files = $event.srcElement.files; 
+    this.files=files;
     this.fileToUpload = $event.target.files[0];
+    this.fileName=this.fileToUpload.name;
 
   
     if (this.isValidCSVFile(files[0])) {  
@@ -95,13 +99,17 @@ export class DragAndDropComponent implements OnInit {
   }  
 
   onUpload(){
-    this.fd = new FormData();
-    this.fd.append(this.students[0], this.fileToUpload);
-    this.http.post('../../../assets/CSV', this.fd).subscribe(
-      res =>{
-        console.log("Working")
-      }
-    );
+    let formData = new FormData();
+    for (var i = 0; i < this.files.length; i++) {
+        formData.append('upload[]', this.files[i], this.files[i].name);
+        console.log(this.files[i].name);
+    }
+    this.header.append("filename", this.files[i].name)
+    console.log(formData.get('upload[]'));
+    this.http.post('/api/upload', formData, {headers: this.header})
+    .subscribe((response) => {
+         console.log('response received is ', response);
+    })
   }
 
 }
