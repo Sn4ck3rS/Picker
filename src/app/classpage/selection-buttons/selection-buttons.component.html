@@ -1,1 +1,43 @@
-<p>selection-buttons works!</p>
+<mat-tab-group mat-align-tabs="center" animationDuration="0ms" [color]="'warn'">
+    <mat-tab label="Gruppengröße">
+        <!-- besser mit form statt table für Anzeige von Label und txt feld, die sich nicht verschieben -->
+        <form>
+            
+        </form>
+        <table class="center">
+            <tr>
+                <td>
+                    <mat-label>Gruppengröße festlegen:&emsp;</mat-label>
+                </td>
+                <td>
+                    <input matInput type="number" [(ngModel)]="grpGroesse">
+                </td>
+            </tr>
+        </table>
+    </mat-tab>
+    <mat-tab label="Gruppenanzahl">
+        <table class="center">
+            <tr>
+                <td>
+                    <mat-label>Gruppenanzahl festlegen:&emsp;</mat-label>
+                </td>
+                <td>
+                    <input matInput type="number" [(ngModel)]="grpAnzahl">
+                </td>
+            </tr>
+        </table>
+    </mat-tab>
+    <mat-tab label="Einzelauswahl">
+        <table class="center">
+            <tr>
+                <td>
+                    <mat-label>Anzahl festlegen:&emsp;</mat-label>
+                </td>
+                <td>
+                    <input matInput type="number" [(ngModel)]="einzel">
+                </td>
+            </tr>
+        </table>
+    </mat-tab>
+</mat-tab-group>
+<button mdbBtn type="button" color="light" mdbWavesEffect>Auswahl starten</button>
