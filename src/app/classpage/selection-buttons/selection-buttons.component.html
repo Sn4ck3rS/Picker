@@ -1,43 +1,27 @@
 <mat-tab-group mat-align-tabs="center" animationDuration="0ms" [color]="'warn'">
     <mat-tab label="Gruppengröße">
-        <!-- besser mit form statt table für Anzeige von Label und txt feld, die sich nicht verschieben -->
-        <form>
-            
+        <form class="formf">
+            <label class="lblgrp">Gruppengröße festlegen:</label>
+            <input type="number" class="inputgrp" [(ngModel)]="grpGroesse" [ngModelOptions]="{standalone: true}">
+            <div class="divsubmit">
+                <button mdbBtn (click)="grpGroesseAuswahl()" type="submit" color="light" mdbWavesEffect id="btnsubmit">Auswahl starten</button>
+            </div>
         </form>
-        <table class="center">
-            <tr>
-                <td>
-                    <mat-label>Gruppengröße festlegen:&emsp;</mat-label>
-                </td>
-                <td>
-                    <input matInput type="number" [(ngModel)]="grpGroesse">
-                </td>
-            </tr>
-        </table>
     </mat-tab>
     <mat-tab label="Gruppenanzahl">
-        <table class="center">
-            <tr>
-                <td>
-                    <mat-label>Gruppenanzahl festlegen:&emsp;</mat-label>
-                </td>
-                <td>
-                    <input matInput type="number" [(ngModel)]="grpAnzahl">
-                </td>
-            </tr>
-        </table>
+        <form class="formf">
+            <label class="lblgrp">Gruppenanzahl festlegen:</label>
+            <input type="number" class="inputgrp" [(ngModel)]="grpAnzahl" [ngModelOptions]="{standalone: true}">
+            <div class="divsubmit">
+                <button mdbBtn  (click)="grpAnzahlAuswahl()" type="submit" color="light" mdbWavesEffect id="btnsubmit">Auswahl starten</button>
+            </div>
+        </form>
     </mat-tab>
     <mat-tab label="Einzelauswahl">
-        <table class="center">
-            <tr>
-                <td>
-                    <mat-label>Anzahl festlegen:&emsp;</mat-label>
-                </td>
-                <td>
-                    <input matInput type="number" [(ngModel)]="einzel">
-                </td>
-            </tr>
-        </table>
+        <form class="formf">
+            <div class="divsubmit">
+                <button mdbBtn (click)="einzelAuswahl()" type="submit" color="light" mdbWavesEffect id="btnsubmit">Auswahl starten</button>
+            </div>
+        </form>
     </mat-tab>
 </mat-tab-group>
-<button mdbBtn type="button" color="light" mdbWavesEffect>Auswahl starten</button>
