@@ -1,1 +1,3 @@
-<p>students works!</p>
+<div id="students">
+    <button *ngFor="let s of students; let i = index" mdbBtn class="noTextTransform" type="button" color="light" mdbWavesEffect>{{s.name}}</button>
+</div>
