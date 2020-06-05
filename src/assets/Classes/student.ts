@@ -12,4 +12,9 @@ export class Student{
 
 
     }
+    setStudentData(cl: String, fn: String, ln: String){
+        this.class = cl;
+        this.firstName = fn;
+        this.lastName = ln;
+    }
 }

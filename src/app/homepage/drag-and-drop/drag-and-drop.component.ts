@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Student } from '../../../assets/Classes/student';
-import { HttpClient, HttpHeaders } from "@angular/common/http"
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Component({
   selector: 'app-drag-and-drop',
@@ -13,7 +13,7 @@ export class DragAndDropComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.onLoadClasses();
+    
   }
 
   public students: Student[] = [];
@@ -112,27 +112,15 @@ export class DragAndDropComponent implements OnInit {
     return JSON.stringify(studentData);
 
   }
-  onLoadClasses() {
-    this.http.get('/api/classes').subscribe(data => console.log("dis is ma data" + data))
-  }
+  
 
-  onClassChosen(chosenClass: string){
-    this.http.post('/api/classInfo', {cl: chosenClass}).subscribe(data => console.log("studentdata: " + data))
-  }
+  
 
 
 
   onUpload() {
 
-    // let formData = new FormData();
-    // for (var i = 0; i < this.files.length; i++) {
-    //     formData.append('upload[]', this.files[i], this.students[i].class + ".json");
-
-    // }
-    // this.header.append("filename", this.files[i].name)
-    this.onClassChosen("FS172");
-
-    this.http.post('/api/upload', { students: this.students, name: this.students[0].class + ".json" }) //JSON
+      this.http.post('/api/upload', { students: this.students, name: this.students[0].class + ".json" }) //JSON
       .subscribe((response) => {
         console.log('response received is ', response);
       })
