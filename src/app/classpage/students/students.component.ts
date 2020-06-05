@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectionButtonsComponent } from '../selection-buttons/selection-buttons.component';
 
 @Component({
   selector: 'app-students',
@@ -7,38 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentsComponent implements OnInit {
 
-  students_dummy = [
-    "Raul Petzmer_1",
-    "Just In Sequence_1",
-    "Nristan Tolde_1",
-    "Go Hannes Jaida_1"
-  ];
-  students = [
-    {
-      name: 'Raul Petzmer',
-      class: 'FS172',
-    },
-    {
-      name: 'Just In Sequence',
-      class: 'FS172',
-    },
-    {
-      name: 'Nristan Tolde',
-      class: 'FS172',
-    },
-    {
-      name: 'Go Hannes Jaida',
-      class: 'FS173',
-    }
-  ];
+  selectionBtnscomp = new SelectionButtonsComponent();
+  students = this.selectionBtnscomp.students;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
-  grpGroesseAuswahl() {
-    
-  }
-
 }
