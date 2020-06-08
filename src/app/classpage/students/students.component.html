@@ -1,5 +1,5 @@
 <div id="students">
-    <mdb-card *ngFor="let s of studentNames">
+    <mdb-card *ngFor="let s of studentNames" class="animated -sildeInRight -slideOutRight lbl">
         <mdb-card-body>
           {{s}}
           <a mdbBtn floating="true" size="lg" gradient="grey" (click)="removeStudent(s)"><mdb-icon fas icon="minus"></mdb-icon></a>
