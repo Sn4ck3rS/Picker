@@ -69,7 +69,7 @@ export class SelectionButtonsComponent implements OnInit {
     }
   ];
 
-  constructor() {  }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -80,6 +80,8 @@ export class SelectionButtonsComponent implements OnInit {
     this.students.forEach(element => {
       students_help.push(element);
     });
+    let undefinedVariables = 0;
+    let indexOfUndefined = 0;
 
     // how many times the algorithm has to run in total to assign every student
     let numOfRuns = Math.floor(this.students.length / this.grpGroesse + 0.99);
@@ -100,6 +102,21 @@ export class SelectionButtonsComponent implements OnInit {
         students_help.splice(rnd, 1);
       }
 
+      // go through the created arrays and look for undefined values
+      for (let k = 0; k < window['grp' + i].length; k++) {
+        if (window['grp' + i][k] == undefined) {
+          indexOfUndefined = k;
+          undefinedVariables++;
+        }
+      }
+
+      if (undefinedVariables / numOfRuns >= 0.4) {
+        let lastArr = window['grp' + (i - 1)];
+        window['grp' + i].splice(indexOfUndefined - 1, undefinedVariables);
+        window['grp' + i].push(lastArr[lastArr.length - 1]);
+        window['grp' + (i - 1)].splice(lastArr.length - 1, 1);
+      }
+
       // showing all the created arrays -debugging-
       console.log(window['grp' + i]);
     }
@@ -111,6 +128,8 @@ export class SelectionButtonsComponent implements OnInit {
     this.students.forEach(element => {
       students_help.push(element);
     });
+    let undefinedVariables = 0;
+    let indexOfUndefined = 0;
 
     // calculating the group size
     let grpGroesse_anz = Math.floor(this.students.length / this.grpAnzahl + 0.99);
@@ -129,6 +148,21 @@ export class SelectionButtonsComponent implements OnInit {
         window['grp' + i].push(students_help[rnd]);
         // delete the choosen student from the helper array
         students_help.splice(rnd, 1);
+      }
+
+      // go through the created arrays and look for undefined values
+      for (let k = 0; k < window['grp' + i].length; k++) {
+        if (window['grp' + i][k] == undefined) {
+          indexOfUndefined = k;
+          undefinedVariables++;
+        }
+      }
+
+      if (undefinedVariables / grpGroesse_anz >= 0.4) {
+        let lastArr = window['grp' + (i - 1)];
+        window['grp' + i].splice(indexOfUndefined - 1, undefinedVariables);
+        window['grp' + i].push(lastArr[lastArr.length - 1]);
+        window['grp' + (i - 1)].splice(lastArr.length - 1, 1);
       }
 
       // showing all the created arrays -debugging-
