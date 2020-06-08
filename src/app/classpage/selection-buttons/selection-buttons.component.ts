@@ -96,7 +96,7 @@ export class SelectionButtonsComponent implements OnInit {
       for (let j = 0; j < this.grpGroesse; j++) {
         let rnd = Math.floor((Math.random() * students_help.length));
         window['grp' + i].push(students_help[rnd]);
-        // delete the choosen student from the helper array
+        // delete the chosen student from the helper array
         students_help.splice(rnd, 1);
       }
 

@@ -22,30 +22,13 @@ export class StudentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentNames = new Array<String>();
-    // this.onSiteLoad();
-    // console.log("classname")
-    // console.log(this.className)
     this.onClassChosen(this.getClass.selectedClass);
-  }
-
-  grpGroesseAuswahl() {
-
-  }
-  onSiteLoad(){
-    
-    this.http.get('/api/getChosenClass').subscribe(data => {
-      console.log("IM ACTUALLY DOIN SOMETHING");
-      console.log(data)
-      this.className = data.toString();
-    })
-    
   }
 
   onClassChosen(chosenClass: string) {
     let temp;
     this.http.post('/api/classInfo', { cl: chosenClass }).subscribe(data => {
-      // console.log("data")
-      // console.log(data)
+
       temp = data;
       for (let i = 0; i < temp.length; i++) {
         let student = new Student();
@@ -58,11 +41,17 @@ export class StudentsComponent implements OnInit {
       this.studentArray.forEach(element => {
         this.studentNames.push(element.firstName + " " + element.lastName);
       })
-      // console.log("temp")
-      // console.log(temp)
-      // console.log(temp.length)
-      // console.log(temp[0])
     })
+  }
+
+  removeStudent(s: string) {
+    let temp = new Array<String>();
+    this.studentNames.forEach(student => {
+      if (student !== s)
+        temp.push(student)
+
+    })
+    this.studentNames = temp;
   }
 
 }
