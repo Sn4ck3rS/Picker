@@ -3,12 +3,44 @@ import { SelectionButtonsComponent } from '../selection-buttons/selection-button
 import { HttpClient } from "@angular/common/http";
 import { Student } from 'src/assets/Classes/student';
 import { SendClassNameService } from 'src/app/send-class-name.service';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
 
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
-  styleUrls: ['./students.component.scss']
+  styleUrls: ['./students.component.scss'],
+  animations: [
+    trigger('studentFadeOut', [
+      state('fade', style({
+        
+        // height: '0px',
+        // width: '0px',
+        // opacity: 1,
+        backgroundColor: 'yellow'
+        })),
+      state('default', style({
+        // width: '25%',
+        // margin: 'auto',
+        backgroundColor: 'green'
+        
+      })),
+      transition('default => fade', [
+        animate('1s')
+      ])
+      ]
+    )
+  ]
 })
+// width: 25%;
+// margin: auto;
+// text-align: center;
 export class StudentsComponent implements OnInit {
 
   selectionBtnscomp = new SelectionButtonsComponent();
@@ -17,12 +49,19 @@ export class StudentsComponent implements OnInit {
   studentArray: Student[] = new Array<Student>();
   studentNames: String[];
   className: string;
+  studentTemp = new Map<string,boolean>();
 
   constructor(private http: HttpClient, private getClass: SendClassNameService) { }
 
   ngOnInit(): void {
     this.studentNames = new Array<String>();
     this.onClassChosen(this.getClass.selectedClass);
+    
+  }
+  setMap(list: String[]){
+    list.forEach(l=>{
+      this.studentTemp.set(l.toString(),true)
+    })
   }
 
   onClassChosen(chosenClass: string) {
@@ -36,6 +75,13 @@ export class StudentsComponent implements OnInit {
 
 
         this.studentArray.push(student)
+        let s = {
+          c: student.class,
+          f: student.firstName,
+          l: student.lastName,
+          b: true
+        }
+        
 
       }
       this.studentArray.forEach(element => {
@@ -49,9 +95,17 @@ export class StudentsComponent implements OnInit {
     this.studentNames.forEach(student => {
       if (student !== s)
         temp.push(student)
+        else{
+          // temp.push(student);
+          this.animationStudentFadeOut(s)
+        }
+        
 
     })
     this.studentNames = temp;
+  }
+  animationStudentFadeOut(s: string){
+    this.studentTemp.set(s,false);
   }
 
 }

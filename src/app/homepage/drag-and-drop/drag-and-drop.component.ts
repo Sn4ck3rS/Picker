@@ -1,20 +1,59 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Student } from '../../../assets/Classes/student';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
+import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-drag-and-drop',
   templateUrl: './drag-and-drop.component.html',
-  styleUrls: ['./drag-and-drop.component.scss']
+  styleUrls: ['./drag-and-drop.component.scss'],
+  animations:[
+    trigger('openClose', [
+    // ...
+state('open', style({
+  height: '200px',
+  opacity: 1,
+  backgroundColor: 'yellow'
+})),
+state('closed', style({
+  height: '100px',
+  opacity: 0.5,
+  backgroundColor: 'green'
+})),
+transition('open => closed', [
+  animate('1s')
+]),
+transition('closed => open', [
+  animate('0.5s')
+])])
+  ]
 })
 export class DragAndDropComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router, private _snackBar: MatSnackBar) { }
 
+
+  
 
   ngOnInit(): void {
     
   }
+
+  isOpen = true;
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+  }
+  
 
   public students: Student[] = [];
   fileToUpload: File = null;
@@ -47,6 +86,8 @@ export class DragAndDropComponent implements OnInit {
         let headersRow = this.getHeaderArray(csvRecordsArray);
 
         this.students = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
+
+        this.onUpload();
       };
 
       reader.onerror = function () {
@@ -97,33 +138,25 @@ export class DragAndDropComponent implements OnInit {
     this.students = [];
   }
 
-  createJson(): any {
-
-    let studentData = new Array<any>();
-    this.students.forEach(s => {
-      let student = {
-        classDesc: s.class,
-        name: s.lastName,
-        firstName: s.firstName
-      }
-      studentData.push(student)
-    })
-
-    return JSON.stringify(studentData);
-
-  }
-  
-
-  
-
-
-
   onUpload() {
 
       this.http.post('/api/upload', { students: this.students, name: this.students[0].class + ".json" }) //JSON
       .subscribe((response) => {
         console.log('response received is ', response);
-      })
+      });
+this.onUploadSuccesful();
+      
+      
+  }
+  onUploadSuccesful(){
+    
+      this._snackBar.open('Upload Successful', 'Ok', {
+        duration: 2000,
+      });
+      this.router.navigateByUrl('/classes', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/home'])});
+
+    
   }
 
 }
