@@ -27,11 +27,7 @@ export class StudentsComponent implements OnInit {
     this.onClassChosen(this.getClass.selectedClass);
     
   }
-  setMap(list: String[]){
-    list.forEach(l=>{
-      this.studentTemp.set(l.toString(),true)
-    })
-  }
+  
 
   onClassChosen(chosenClass: string) {
     let temp;
@@ -65,17 +61,9 @@ export class StudentsComponent implements OnInit {
     this.studentNames.forEach(student => {
       if (student !== s)
         temp.push(student)
-        else{
-          // temp.push(student);
-          this.animationStudentFadeOut(s)
-        }
-        
-
     });
     this.studentNames = temp;
   }
-  animationStudentFadeOut(s: string){
-    this.studentTemp.set(s,false);
-  }
+  
 
 }
