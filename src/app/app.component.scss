@@ -1,8 +1,12 @@
+html {
+    height: fit-content;
+    min-height: 100%;
+}
+
 body {
     background-image: url(../assets/Images/background_HD_transparent.png);
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    height: 100vh;
 }

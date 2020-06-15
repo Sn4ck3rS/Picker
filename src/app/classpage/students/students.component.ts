@@ -44,10 +44,16 @@ export class StudentsComponent implements OnInit {
 
   removeStudent(s: string) {
     let temp = new Array<String>();
+    let count = 0;
     this.studentNames.forEach(student => {
-      if (student !== s)
-        temp.push(student)
-
+      if (student == s) {
+        this.getStudents.students.splice(count, 1);
+      }
+      else if (student !== s) {
+        temp.push(student);
+        count++;
+      }
+        
     });
     this.studentNames = temp;
   }
