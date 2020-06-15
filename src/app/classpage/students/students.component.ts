@@ -25,11 +25,10 @@ export class StudentsComponent implements OnInit {
   ngOnInit(): void {
     this.studentNames = new Array<String>();
     this.onClassChosen(this.getClass.selectedClass);
-    
   }
   
 
-  onClassChosen(chosenClass: string) {
+  onClassChosen(chosenClass: string): void {
     let temp;
     this.http.post('/api/classInfo', { cl: chosenClass }).subscribe(data => {
 
@@ -56,7 +55,7 @@ export class StudentsComponent implements OnInit {
     })
   }
 
-  removeStudent(s: string) {
+  removeStudent(s: string): void {
     let temp = new Array<String>();
     let count = 0;
     this.studentNames.forEach(student => {

@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 #students {
     margin: auto;
     width: 75%;
@@ -11,7 +13,18 @@
 }
 
 .lbl{
-    width: 25%;
+    width: fit-content;
     margin: auto;
+    // margin-top: 5px;
+    // margin-bottom: 5px;
     text-align: center;
+    padding: 5px;
+}
+
+.padd {
+    padding: 5px;
+}
+
+.col-md {
+    padding: 0;
 }
