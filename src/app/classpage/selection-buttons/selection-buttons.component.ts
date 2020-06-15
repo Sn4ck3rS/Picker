@@ -1,5 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { SendStudentsService } from 'src/app/send-students.service';
 
 @Component({
   selector: 'app-selection-buttons',
@@ -10,66 +11,66 @@ export class SelectionButtonsComponent implements OnInit {
 
   @Output('grpGroesse') grpGroesse = 1;
   @Output('grpAnzahl') grpAnzahl = 1;
-  students = [
-    {
-      name: 'Vincent Albert',
-      class: 'FS172',
-    },
-    {
-      name: 'Justin Axt',
-      class: 'FS172',
-    },
-    {
-      name: 'Sebastian Bracht',
-      class: 'FS172',
-    },
-    {
-      name: 'Mona Bollhorst',
-      class: 'FS172',
-    },
-    {
-      name: 'Leon Bußmann',
-      class: 'FS172',
-    },
-    {
-      name: 'Felix Fischer',
-      class: 'FS172',
-    },
-    {
-      name: 'Johannes Gaida',
-      class: 'FS172',
-    },
-    {
-      name: 'Julius Gockeln',
-      class: 'FS172',
-    },
-    {
-      name: 'Lena Müller',
-      class: 'FS172',
-    },
-    {
-      name: 'Dominik Neumann',
-      class: 'FS172',
-    },
-    {
-      name: 'Tristan Nolde',
-      class: 'FS172',
-    },
-    {
-      name: 'Paul Rezmer',
-      class: 'FS172',
-    },
-    {
-      name: 'Max Ries',
-      class: 'FS172',
-    },
-    {
-      name: 'Vivienne Weik',
-      class: 'FS172',
-    }
-  ];
+  // students = [
+  //   {
+  //     name: 'Vincent Albert',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Justin Axt',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Sebastian Bracht',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Mona Bollhorst',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Leon Bußmann',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Felix Fischer',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Johannes Gaida',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Julius Gockeln',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Lena Müller',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Dominik Neumann',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Tristan Nolde',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Paul Rezmer',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Max Ries',
+  //     class: 'FS172',
+  //   },
+  //   {
+  //     name: 'Vivienne Weik',
+  //     class: 'FS172',
+  //   }
+  // ];
 
-  constructor() { }
+  constructor(private getStudents: SendStudentsService) { }
 
   ngOnInit(): void {
   }
@@ -77,14 +78,14 @@ export class SelectionButtonsComponent implements OnInit {
   grpGroesseAuswahl(): void {
     // create helper array (making sure that every student is assigned only once)
     let students_help = [];
-    this.students.forEach(element => {
+    this.getStudents.students.forEach(element => {
       students_help.push(element);
     });
     let undefinedVariables = 0;
     let indexOfUndefined = 0;
 
     // how many times the algorithm has to run in total to assign every student
-    let numOfRuns = Math.floor(this.students.length / this.grpGroesse + 0.99);
+    let numOfRuns = Math.floor(this.getStudents.students.length / this.grpGroesse + 0.99);
 
     for (let i = 0; i < numOfRuns; i++) {
       // if there are still students not assigned: create new array (group) for them
@@ -114,25 +115,28 @@ export class SelectionButtonsComponent implements OnInit {
         let lastArr = window['grp' + (i - 1)];
         window['grp' + i].splice(indexOfUndefined - 1, undefinedVariables);
         window['grp' + i].push(lastArr[lastArr.length - 1]);
-        window['grp' + (i - 1)].splice(lastArr.length - 1, 1);
+        lastArr.splice(lastArr.length - 1, 1);
       }
 
+    }
+
+    for (let i = 0; i < numOfRuns; i++) {
       // showing all the created arrays -debugging-
-      console.log(window['grp' + i]);
+      console.log(window['grp' + i].slice());
     }
   }
 
   grpAnzahlAuswahl(): void {
     // create helper array (making sure that every student is assigned only once)
     let students_help = [];
-    this.students.forEach(element => {
+    this.getStudents.students.forEach(element => {
       students_help.push(element);
     });
     let undefinedVariables = 0;
     let indexOfUndefined = 0;
 
     // calculating the group size
-    let grpGroesse_anz = Math.floor(this.students.length / this.grpAnzahl + 0.99);
+    let grpGroesse_anz = Math.floor(this.getStudents.students.length / this.grpAnzahl + 0.99);
 
     for (let i = 0; i < this.grpAnzahl; i++) {
       // if there are still students not assigned: create new array (group) for them
@@ -162,17 +166,20 @@ export class SelectionButtonsComponent implements OnInit {
         let lastArr = window['grp' + (i - 1)];
         window['grp' + i].splice(indexOfUndefined - 1, undefinedVariables);
         window['grp' + i].push(lastArr[lastArr.length - 1]);
-        window['grp' + (i - 1)].splice(lastArr.length - 1, 1);
+        lastArr.splice(lastArr.length - 1, 1);
       }
+      
+    }
 
+    for (let i = 0; i < this.grpAnzahl; i++) {
       // showing all the created arrays -debugging-
-      console.log(window['grp' + i]);
+      console.log(window['grp' + i].slice());
     }
   }
 
   einzelAuswahl(): void {
-    let rnd = Math.floor((Math.random() * this.students.length));
-    let choosenStudent = this.students[rnd];
+    let rnd = Math.floor((Math.random() * this.getStudents.students.length));
+    let choosenStudent = this.getStudents.students[rnd];
     console.log(choosenStudent);
   }
 

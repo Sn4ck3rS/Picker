@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectionButtonsComponent } from '../selection-buttons/selection-buttons.component';
 import { HttpClient } from "@angular/common/http";
 import { Student } from 'src/assets/Classes/student';
 import { SendClassNameService } from 'src/app/send-class-name.service';
+import { SendStudentsService } from 'src/app/send-students.service';
 
 @Component({
   selector: 'app-students',
@@ -11,14 +11,11 @@ import { SendClassNameService } from 'src/app/send-class-name.service';
 })
 export class StudentsComponent implements OnInit {
 
-  selectionBtnscomp = new SelectionButtonsComponent();
-  students = this.selectionBtnscomp.students;
-
   studentArray: Student[] = new Array<Student>();
   studentNames: String[];
   className: string;
 
-  constructor(private http: HttpClient, private getClass: SendClassNameService) { }
+  constructor(private http: HttpClient, private getClass: SendClassNameService, private getStudents: SendStudentsService) { }
 
   ngOnInit(): void {
     this.studentNames = new Array<String>();
@@ -40,7 +37,8 @@ export class StudentsComponent implements OnInit {
       }
       this.studentArray.forEach(element => {
         this.studentNames.push(element.firstName + " " + element.lastName);
-      })
+        this.getStudents.students.push(element.firstName + " " + element.lastName);
+      });
     })
   }
 
@@ -50,7 +48,7 @@ export class StudentsComponent implements OnInit {
       if (student !== s)
         temp.push(student)
 
-    })
+    });
     this.studentNames = temp;
   }
 
