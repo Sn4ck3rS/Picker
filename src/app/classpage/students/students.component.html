@@ -1,9 +1,4 @@
-  <div id="students"  *ngFor="let s of studentNames" >
-    <!-- [@studentFadeOut]="studentTemp.get(s) ? 'default' : 'fade'" -->
-    <mdb-card class="animated -sildeInRight -slideOutRight lbl">
-        <mdb-card-body>
-          {{s}}
-          <a mdbBtn floating="true" size="lg" gradient="grey" (click)="removeStudent(s)"><mdb-icon fas icon="minus"></mdb-icon></a>
-        </mdb-card-body>
-      </mdb-card>
-    </div>
+<div id="students">
+  <button *ngFor="let s of studentNames" mdbBtn type="button" class="noTextTransform" color="light" mdbWavesEffect
+    (click)="removeStudent(s)">{{s}}</button>
+</div>

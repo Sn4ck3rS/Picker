@@ -70,15 +70,15 @@ export class SelectionButtonsComponent implements OnInit {
 
     }
 
-    for (let i = 1; i < numOfRuns+1; i++) {
-      let temp = window['grp' + (i-1)].slice();
-      temp.forEach(e=>{
-        if(e!==undefined){
-          this.result += "Gruppe " + i + ";" + 
-          e + "\n";
+    for (let i = 1; i < numOfRuns + 1; i++) {
+      let temp = window['grp' + (i - 1)].slice();
+      temp.forEach(e => {
+        if (e !== undefined) {
+          this.result += "Gruppe " + i + ";" +
+            e + "\n";
         }
       })
-      
+
       // console.log(window['grp' + i].slice());
     }
     console.log(this.result)
@@ -134,15 +134,14 @@ export class SelectionButtonsComponent implements OnInit {
         window['grp' + i].push(lastArr[lastArr.length - 1]);
         lastArr.splice(lastArr.length - 1, 1);
       }
-      
+
     }
 
-    for (let i = 1; i < this.grpAnzahl+1; i++) {
-      let temp = window['grp' + (i-1)].slice();
-      temp.forEach(e=>{
-        if(e!==undefined){
-          this.result += "Gruppe " + i + ";" + 
-          e + "\n";
+    for (let i = 1; i < this.grpAnzahl + 1; i++) {
+      let temp = window['grp' + (i - 1)].slice();
+      temp.forEach(e => {
+        if (e !== undefined) {
+          this.result += "Gruppe " + i + ";" + e + "\n";
         }
       })
     }
