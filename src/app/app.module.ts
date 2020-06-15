@@ -20,6 +20,9 @@ import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +45,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatSliderModule,
     MatTabsModule,
     MatFormFieldModule,
+    MatSnackBarModule,
+    ClipboardModule,
     FormsModule
   ],
   providers: [],

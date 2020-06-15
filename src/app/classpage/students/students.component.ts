@@ -7,20 +7,27 @@ import { SendStudentsService } from 'src/app/send-students.service';
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
-  styleUrls: ['./students.component.scss']
+  styleUrls: ['./students.component.scss'],
+  
 })
+// width: 25%;
+// margin: auto;
+// text-align: center;
 export class StudentsComponent implements OnInit {
 
   studentArray: Student[] = new Array<Student>();
   studentNames: String[];
   className: string;
+  studentTemp = new Map<string,boolean>();
 
   constructor(private http: HttpClient, private getClass: SendClassNameService, private getStudents: SendStudentsService) { }
 
   ngOnInit(): void {
     this.studentNames = new Array<String>();
     this.onClassChosen(this.getClass.selectedClass);
+    
   }
+  
 
   onClassChosen(chosenClass: string) {
     let temp;
@@ -33,6 +40,13 @@ export class StudentsComponent implements OnInit {
 
 
         this.studentArray.push(student)
+        let s = {
+          c: student.class,
+          f: student.firstName,
+          l: student.lastName,
+          b: true
+        }
+        
 
       }
       this.studentArray.forEach(element => {
@@ -57,5 +71,6 @@ export class StudentsComponent implements OnInit {
     });
     this.studentNames = temp;
   }
+  
 
 }

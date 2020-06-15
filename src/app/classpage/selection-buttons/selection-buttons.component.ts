@@ -11,66 +11,11 @@ export class SelectionButtonsComponent implements OnInit {
 
   @Output('grpGroesse') grpGroesse = 1;
   @Output('grpAnzahl') grpAnzahl = 1;
-  // students = [
-  //   {
-  //     name: 'Vincent Albert',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Justin Axt',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Sebastian Bracht',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Mona Bollhorst',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Leon Bußmann',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Felix Fischer',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Johannes Gaida',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Julius Gockeln',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Lena Müller',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Dominik Neumann',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Tristan Nolde',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Paul Rezmer',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Max Ries',
-  //     class: 'FS172',
-  //   },
-  //   {
-  //     name: 'Vivienne Weik',
-  //     class: 'FS172',
-  //   }
-  // ];
+
 
   constructor(private getStudents: SendStudentsService) { }
+
+  result: string;
 
   ngOnInit(): void {
   }
@@ -78,6 +23,7 @@ export class SelectionButtonsComponent implements OnInit {
   grpGroesseAuswahl(): void {
     // create helper array (making sure that every student is assigned only once)
     let students_help = [];
+    this.result = "";
     this.getStudents.students.forEach(element => {
       students_help.push(element);
     });
@@ -120,15 +66,24 @@ export class SelectionButtonsComponent implements OnInit {
 
     }
 
-    for (let i = 0; i < numOfRuns; i++) {
-      // showing all the created arrays -debugging-
-      console.log(window['grp' + i].slice());
+    for (let i = 1; i < numOfRuns+1; i++) {
+      let temp = window['grp' + (i-1)].slice();
+      temp.forEach(e=>{
+        if(e!==undefined){
+          this.result += "Gruppe " + i + ";" + 
+          e + "\n";
+        }
+      })
+      
+      // console.log(window['grp' + i].slice());
     }
+    console.log(this.result)
   }
 
   grpAnzahlAuswahl(): void {
     // create helper array (making sure that every student is assigned only once)
     let students_help = [];
+    this.result = "";
     this.getStudents.students.forEach(element => {
       students_help.push(element);
     });
@@ -171,13 +126,20 @@ export class SelectionButtonsComponent implements OnInit {
       
     }
 
-    for (let i = 0; i < this.grpAnzahl; i++) {
-      // showing all the created arrays -debugging-
-      console.log(window['grp' + i].slice());
+    for (let i = 1; i < this.grpAnzahl+1; i++) {
+      let temp = window['grp' + (i-1)].slice();
+      temp.forEach(e=>{
+        if(e!==undefined){
+          this.result += "Gruppe " + i + ";" + 
+          e + "\n";
+        }
+      })
     }
+    console.log(this.result)
   }
 
   einzelAuswahl(): void {
+    this.result = "";
     let rnd = Math.floor((Math.random() * this.getStudents.students.length));
     let choosenStudent = this.getStudents.students[rnd];
     console.log(choosenStudent);
