@@ -8,4 +8,8 @@ export class SendStudentsService {
   constructor() { }
 
   students = [];
+  result: string;
+  einzelauswahl:boolean;
+  anzahl: number;
+  isSize: boolean;
 }

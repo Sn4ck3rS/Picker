@@ -22,6 +22,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { ShowResultComponent } from './classpage/show-result/show-result.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     StudentsComponent,
     SelectionButtonsComponent,
     HomepageComponent,
-    ClasspageComponent
+    ClasspageComponent,
+    ShowResultComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     MatSliderModule,
     MatTabsModule,
     MatFormFieldModule,
+    MatDialogModule,
     MatSnackBarModule,
     ClipboardModule,
     FormsModule

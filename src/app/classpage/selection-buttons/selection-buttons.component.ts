@@ -1,6 +1,8 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { SendStudentsService } from 'src/app/send-students.service';
+import {MatDialog} from '@angular/material/dialog';
+import { ShowResultComponent } from '../show-result/show-result.component';
 
 @Component({
   selector: 'app-selection-buttons',
@@ -13,9 +15,10 @@ export class SelectionButtonsComponent implements OnInit {
   @Output('grpAnzahl') grpAnzahl = 1;
 
 
-  constructor(private getStudents: SendStudentsService) { }
+  constructor(private getStudents: SendStudentsService, public dialog: MatDialog) { }
 
   result: string;
+  einzelauswahl = false
 
   ngOnInit(): void {
   }
@@ -24,6 +27,7 @@ export class SelectionButtonsComponent implements OnInit {
     // create helper array (making sure that every student is assigned only once)
     let students_help = [];
     this.result = "";
+    this.einzelauswahl = false;
     this.getStudents.students.forEach(element => {
       students_help.push(element);
     });
@@ -78,12 +82,19 @@ export class SelectionButtonsComponent implements OnInit {
       // console.log(window['grp' + i].slice());
     }
     console.log(this.result)
+    this.getStudents.result = this.result;
+    this.getStudents.einzelauswahl = this.einzelauswahl;
+    console.log("grpGr: " + this.grpGroesse)
+    this.getStudents.anzahl = this.grpGroesse;
+    this.getStudents.isSize=true;
+    this.openDialog();
   }
 
   grpAnzahlAuswahl(): void {
     // create helper array (making sure that every student is assigned only once)
     let students_help = [];
     this.result = "";
+    this.einzelauswahl = false;
     this.getStudents.students.forEach(element => {
       students_help.push(element);
     });
@@ -136,13 +147,31 @@ export class SelectionButtonsComponent implements OnInit {
       })
     }
     console.log(this.result)
+    this.getStudents.result = this.result;
+    this.getStudents.einzelauswahl = this.einzelauswahl;
+    console.log("grpAnz: " + this.grpAnzahl)
+    this.getStudents.anzahl = this.grpAnzahl;
+    this.getStudents.isSize=false;
+    this.openDialog();
   }
 
   einzelAuswahl(): void {
     this.result = "";
+    this.einzelauswahl = true
     let rnd = Math.floor((Math.random() * this.getStudents.students.length));
-    let choosenStudent = this.getStudents.students[rnd];
-    console.log(choosenStudent);
+    let chosenStudent = this.getStudents.students[rnd];
+    console.log(chosenStudent);
+    this.getStudents.result = chosenStudent;
+    this.getStudents.einzelauswahl = this.einzelauswahl;
+    this.openDialog();
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(ShowResultComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }
