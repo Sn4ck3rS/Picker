@@ -1,31 +1,32 @@
-<h2 mat-dialog-title>Ergebnis</h2>
-<mat-dialog-content class="mat-typography">
+<div mat-dialog-title><h2 class="white-text">Ergebnis</h2></div>
+<div mat-dialog-content class="mat-typography">
     <div *ngIf="einzel">
-        <h3>Gewählt wurde:</h3>
-        <h3>{{result}}</h3>
+        <h3 class="white-text">Gewählt wurde:</h3>
+        <h3 class="white-text">{{result}}</h3>
     </div>
     <div *ngIf="!einzel">
-        <table>
-            <tr>
-                <th *ngFor="let name of groupNames">
-                    {{name}}
-                </th>
-            </tr>
-            <tr>
-                <td *ngFor="let grp of groups">
-                    <a *ngFor="let item of grp">
-                        {{item}}
-                    </a>
-                        
-                    
-                </td>
-            </tr>
-            
+        <table mdbTable bordered>
+            <thead>
+                <tr>
+                    <th *ngFor="let name of groupNames" class="white-text">
+                        {{name}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr mdbTableCol>
+                    <td *ngFor="let grp of groups" class="white-text">
+                        <p *ngFor="let item of grp" class="white-text">
+                            {{item}}
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
-  
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
-</mat-dialog-actions>
+
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial [cdkCopyToClipboard]="result">In Zwischenablage
+        kopieren</button>
+  </div>
